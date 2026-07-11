@@ -1,0 +1,79 @@
+@import 'bootstrap/dist/css/bootstrap.rtl.min.css';
+
+:root {
+  --prena-primary: #1A237E;
+  --prena-accent: #00E5FF;
+  --prena-secondary: #7C4DFF;
+  --prena-mode: light;
+  --font-family: 'Yekan', 'YekanFaNum', 'Tahoma', sans-serif;
+  --font-size: 16px;
+  --border-radius: 10px;
+  --density: 1rem;
+}
+
+* { font-family: var(--font-family) !important; }
+
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, button, input, select, textarea, label, table, th, td, li, ul, ol, small, strong, b, i, em {
+  font-family: var(--font-family) !important;
+}
+
+body { 
+  background-color: #f8f9fa; direction: rtl; text-align: right;
+  transition: background-color 0.3s; font-size: var(--font-size);
+}
+
+/* Dark Mode */
+body.dark-mode { background-color: #1a1a2e; color: #e0e0e0; }
+body.dark-mode .card { background-color: #16213e; color: #e0e0e0; }
+body.dark-mode .header { background-color: #0f3460; color: white; }
+body.dark-mode .btn-light { background-color: #16213e; color: #e0e0e0; border-color: #2a2a4a; }
+body.dark-mode .bg-light { background-color: #16213e !important; }
+body.dark-mode .text-muted { color: #aaa !important; }
+
+/* Sidebar */
+.sidebar { 
+  width: 280px; min-height: 100vh; 
+  background: linear-gradient(180deg, #0a0a2e 0%, #1a1a4e 40%, #1A237E 100%); 
+  color: white; position: fixed; right: 0; top: 0; z-index: 1000; 
+  transition: all 0.3s ease; overflow-y: auto;
+  display: flex; flex-direction: column;
+}
+.sidebar .logo { padding: 1.25rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.sidebar .nav-link { 
+  color: rgba(255,255,255,0.7); transition: all 0.2s; font-weight: 400;
+  text-decoration: none; font-family: var(--font-family) !important;
+}
+.sidebar .nav-link:hover { color: white; background: rgba(255,255,255,0.08); }
+.sidebar .nav-link.active { 
+  color: white; background: rgba(255,255,255,0.12); 
+  border-right: 3px solid var(--prena-accent);
+}
+
+/* Main Content */
+.main-content { margin-right: 280px; min-height: 100vh; transition: all 0.3s; }
+.header { 
+  background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+  padding: 0.75rem 1.5rem; position: sticky; top: 0; z-index: 100;
+}
+.card { border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-radius: var(--border-radius); }
+
+/* Buttons */
+.btn-prena {
+  background: linear-gradient(135deg, var(--prena-primary), var(--prena-secondary));
+  color: white; border: none; padding: 0.6rem 1.5rem; border-radius: var(--border-radius);
+  font-weight: 500; transition: all 0.3s; font-family: var(--font-family) !important;
+}
+.btn-prena:hover { color: white; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,35,126,0.4); }
+
+.form-control, .form-select { border-radius: var(--border-radius); font-family: var(--font-family) !important; }
+
+/* Fix Bootstrap font override */
+.btn, .form-control, .form-select, .dropdown-item, .nav-link, .badge, .alert, .modal-title, .table {
+  font-family: var(--font-family) !important;
+}
+
+@media (max-width: 768px) { 
+  .sidebar { right: -280px; } 
+  .sidebar.open { right: 0; } 
+  .main-content { margin-right: 0; } 
+}

@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Application/">
+    <Project Path="src/Application/Prena.Application/Prena.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/Core/">
+    <Project Path="src/Core/Prena.Domain/Prena.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Infrastructure/">
+    <Project Path="src/Infrastructure/Prena.Infrastructure/Prena.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Presentation/">
+    <Project Path="src/Presentation/Prena.Api/Prena.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Prena.Application.Tests/Prena.Application.Tests.csproj" />
+    <Project Path="tests/Prena.Domain.Tests/Prena.Domain.Tests.csproj" />
+  </Folder>
+</Solution>

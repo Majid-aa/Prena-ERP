@@ -1,0 +1,38 @@
+﻿/* اضافه کردن به انتهای LoginPage.tsx - استایل‌های مشابه فارابی */
+
+.login-farabi-style .form-control-custom {
+  font-family: 'IRANSans', 'IRANSansWeb', 'Tahoma', sans-serif !important;
+  font-size: 14px;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fff;
+  height: 45px;
+}
+
+.login-farabi-style .form-control-custom:focus {
+  border-color: #00bf6f;
+  box-shadow: 0 0 0 2px rgba(0,191,111,0.1);
+}
+
+.login-farabi-style .btn-login {
+  background: #00bf6f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'IRANSans', 'IRANSansWeb', 'Tahoma', sans-serif !important;
+}
+
+.login-farabi-style .btn-login:hover {
+  background: #00a85f;
+}
+
+.login-farabi-style label {
+  font-family: 'IRANSans', 'IRANSansWeb', 'Tahoma', sans-serif !important;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 5px;
+}
