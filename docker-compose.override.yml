@@ -1,0 +1,17 @@
+﻿version: '3.8'
+
+services:
+  prena-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ./src:/src
+    build:
+      dockerfile: Dockerfile.Api
+
+  prena-web:
+    build:
+      dockerfile: Dockerfile.Web
+    volumes:
+      - ./src/Prena.Web:/app
+      - /app/node_modules

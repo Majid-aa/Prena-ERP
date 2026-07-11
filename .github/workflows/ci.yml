@@ -1,0 +1,55 @@
+﻿name: Prena CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: Y
+          MSSQL_SA_PASSWORD: Prena@2026!
+        ports:
+          - 1433:1433
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET 10
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Restore .NET dependencies
+      run: dotnet restore
+
+    - name: Build .NET
+      run: dotnet build --no-restore -c Release
+
+    - name: Run Unit Tests
+      run: dotnet test --no-build -c Release --verbosity normal
+
+    - name: Install Frontend dependencies
+      working-directory: src/Prena.Web
+      run: npm ci
+
+    - name: Build Frontend
+      working-directory: src/Prena.Web
+      run: npm run build
+
+    - name: Build Docker images
+      run: |
+        docker build -f Dockerfile.Api -t prena-api .
+        docker build -f Dockerfile.Web -t prena-web .

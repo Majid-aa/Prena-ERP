@@ -1,0 +1,24 @@
+﻿FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+# Copy csproj and restore
+COPY src/Core/Prena.Domain/Prena.Domain.csproj src/Core/Prena.Domain/
+COPY src/Application/Prena.Application/Prena.Application.csproj src/Application/Prena.Application/
+COPY src/Infrastructure/Prena.Infrastructure/Prena.Infrastructure.csproj src/Infrastructure/Prena.Infrastructure/
+COPY src/Presentation/Prena.Api/Prena.Api.csproj src/Presentation/Prena.Api/
+
+RUN dotnet restore src/Presentation/Prena.Api/Prena.Api.csproj
+
+# Copy everything and build
+COPY . .
+WORKDIR /src/src/Presentation/Prena.Api
+RUN dotnet publish -c Release -o /app
+
+# Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
+WORKDIR /app
+COPY --from=build /app .
+ENV ASPNETCORE_URLS=http://+:80
+ENV ASPNETCORE_ENVIRONMENT=Production
+EXPOSE 80
+ENTRYPOINT ["dotnet", "Prena.Api.dll"]
