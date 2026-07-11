@@ -15,28 +15,24 @@ import { SettingsPage } from './pages/SettingsPage';
 import { AccountingPage } from './pages/AccountingPage';
 import { JournalPage } from './pages/JournalPage';
 import { TrialBalancePage } from './pages/TrialBalancePage';
+import { LedgerPage } from './pages/LedgerPage';
+import { ProfitLossPage } from './pages/ProfitLossPage';
+import { TreasuryPage } from './pages/TreasuryPage';
+import { ChequesPage } from './pages/ChequesPage';
+import { InventoryPage } from './pages/InventoryPage';
+import { SalesPage } from './pages/SalesPage';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { CompaniesPage } from './pages/admin/CompaniesPage';
 import { ModulesPage } from './pages/admin/ModulesPage';
 import { AgentsPage } from './pages/admin/AgentsPage';
 import './styles/global.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { LedgerPage } from './pages/LedgerPage';
-import { ProfitLossPage } from './pages/ProfitLossPage';
 
 const ProtectedRoute: React.FC<{children:React.ReactNode}> = ({children}) => {
   const {isAuthenticated, isLoading} = useAuth();
   if(isLoading) return <div className="d-flex justify-content-center align-items-center min-vh-100"><div className="spinner-border text-primary"/></div>;
   return isAuthenticated ? <>{children}</> : <Navigate to="/login"/>;
 };
-
-const Placeholder: React.FC<{title:string}> = ({title}) => (
-  <div className="card p-5 text-center" style={{borderRadius:'12px'}}>
-    <div style={{fontSize:'3rem',marginBottom:'1rem'}}>🚧</div>
-    <h4 style={{fontWeight:500}}>{title}</h4>
-    <p className="text-muted">این ماژول به زودی در دسترس خواهد بود.</p>
-  </div>
-);
 
 const App: React.FC = () => (
   <BrowserRouter>
@@ -54,14 +50,25 @@ const App: React.FC = () => (
             <Route path="users" element={<UsersPage/>}/>
             <Route path="roles" element={<RolesPage/>}/>
             <Route path="settings" element={<SettingsPage/>}/>
+            
+            {/* حسابداری */}
             <Route path="accounting" element={<AccountingPage/>}/>
             <Route path="accounting/journal" element={<JournalPage/>}/>
             <Route path="accounting/trial-balance" element={<TrialBalancePage/>}/>
             <Route path="accounting/ledger" element={<LedgerPage/>}/>
             <Route path="accounting/profit-loss" element={<ProfitLossPage/>}/>
-            <Route path="treasury" element={<Placeholder title="خزانه داری"/>}/>
-            <Route path="inventory" element={<Placeholder title="انبارداری"/>}/>
-            <Route path="sales" element={<Placeholder title="فروش"/>}/>
+            
+            {/* خزانه داری */}
+            <Route path="treasury" element={<TreasuryPage/>}/>
+            <Route path="treasury/cheques" element={<ChequesPage/>}/>
+            
+            {/* انبارداری */}
+            <Route path="inventory" element={<InventoryPage/>}/>
+            
+            {/* فروش */}
+            <Route path="sales" element={<SalesPage/>}/>
+            
+            {/* مدیریت سیستم */}
             <Route path="admin/dashboard" element={<AdminDashboard/>}/>
             <Route path="admin/companies" element={<CompaniesPage/>}/>
             <Route path="admin/modules" element={<ModulesPage/>}/>
