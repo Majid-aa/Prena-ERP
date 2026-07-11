@@ -21,6 +21,8 @@ import { ModulesPage } from './pages/admin/ModulesPage';
 import { AgentsPage } from './pages/admin/AgentsPage';
 import './styles/global.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { LedgerPage } from './pages/LedgerPage';
+import { ProfitLossPage } from './pages/ProfitLossPage';
 
 const ProtectedRoute: React.FC<{children:React.ReactNode}> = ({children}) => {
   const {isAuthenticated, isLoading} = useAuth();
@@ -55,6 +57,8 @@ const App: React.FC = () => (
             <Route path="accounting" element={<AccountingPage/>}/>
             <Route path="accounting/journal" element={<JournalPage/>}/>
             <Route path="accounting/trial-balance" element={<TrialBalancePage/>}/>
+            <Route path="accounting/ledger" element={<LedgerPage/>}/>
+            <Route path="accounting/profit-loss" element={<ProfitLossPage/>}/>
             <Route path="treasury" element={<Placeholder title="خزانه داری"/>}/>
             <Route path="inventory" element={<Placeholder title="انبارداری"/>}/>
             <Route path="sales" element={<Placeholder title="فروش"/>}/>

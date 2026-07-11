@@ -5,7 +5,7 @@ import {
   RiShoppingCartLine, RiArchiveLine, RiTeamLine, RiProfileLine,
   RiArrowDownSLine, RiArrowUpSLine, RiBankLine, RiMoneyDollarCircleLine,
   RiBuilding2Line, RiBarChart2Line, RiShieldKeyholeLine,
-  RiCustomerService2Line, RiAppsLine
+  RiCustomerService2Line, RiAppsLine, RiBookOpenLine
 } from 'react-icons/ri';
 
 interface Props { isOpen: boolean; onToggle: () => void; }
@@ -18,37 +18,40 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  { path: '/dashboard', icon: <RiDashboardLine size={20} />, label: '???????' },
+  { path: '/dashboard', icon: <RiDashboardLine size={20} />, label: 'داشبورد' },
   { 
-    icon: <RiFileTextLine size={20} />, label: '????????',
+    icon: <RiFileTextLine size={20} />, label: 'حسابداری',
     children: [
-      { path: '/accounting', icon: <RiFileTextLine size={16} />, label: '????? ????????' },
-      { path: '/accounting/reports', icon: <RiBarChart2Line size={16} />, label: '??????? ????' },
+      { path: '/accounting', icon: <RiFileTextLine size={16} />, label: 'ثبت سند' },
+      { path: '/accounting/journal', icon: <RiBookOpenLine size={16} />, label: 'دفتر روزنامه' },
+      { path: '/accounting/trial-balance', icon: <RiBarChart2Line size={16} />, label: 'تراز آزمایشی' },
+      { path: '/accounting/ledger', icon: <RiBookOpenLine size={16} />, label: 'دفتر کل' },
+      { path: '/accounting/profit-loss', icon: <RiBarChart2Line size={16} />, label: 'سود و زیان' },
     ]
   },
   { 
-    icon: <RiBankLine size={20} />, label: '????? ????',
+    icon: <RiBankLine size={20} />, label: 'خزانه داری',
     children: [
-      { path: '/treasury', icon: <RiMoneyDollarCircleLine size={16} />, label: '?????? ? ??????' },
-      { path: '/treasury/cheques', icon: <RiFileTextLine size={16} />, label: '?????? ??' },
+      { path: '/treasury', icon: <RiMoneyDollarCircleLine size={16} />, label: 'دریافت و پرداخت' },
+      { path: '/treasury/cheques', icon: <RiFileTextLine size={16} />, label: 'مدیریت چک' },
     ]
   },
-  { path: '/inventory', icon: <RiArchiveLine size={20} />, label: '?????????' },
-  { path: '/sales', icon: <RiShoppingCartLine size={20} />, label: '????' },
-  { path: '/users', icon: <RiUserLine size={20} />, label: '???????' },
-  { path: '/roles', icon: <RiTeamLine size={20} />, label: '??? ??' },
+  { path: '/inventory', icon: <RiArchiveLine size={20} />, label: 'انبارداری' },
+  { path: '/sales', icon: <RiShoppingCartLine size={20} />, label: 'فروش' },
+  { path: '/users', icon: <RiUserLine size={20} />, label: 'کاربران' },
+  { path: '/roles', icon: <RiTeamLine size={20} />, label: 'نقش ها' },
   { 
     icon: <RiShieldKeyholeLine size={20} />, 
-    label: '?????? ?????',
+    label: 'مدیریت سیستم',
     children: [
-      { path: '/admin/dashboard', icon: <RiDashboardLine size={16} />, label: '??????? ??????' },
-      { path: '/admin/companies', icon: <RiBuilding2Line size={16} />, label: '???? ??' },
-      { path: '/admin/modules', icon: <RiAppsLine size={16} />, label: '????? ??' },
-      { path: '/admin/agents', icon: <RiCustomerService2Line size={16} />, label: '??????? ??' },
+      { path: '/admin/dashboard', icon: <RiDashboardLine size={16} />, label: 'داشبورد مدیریت' },
+      { path: '/admin/companies', icon: <RiBuilding2Line size={16} />, label: 'شرکت ها' },
+      { path: '/admin/modules', icon: <RiAppsLine size={16} />, label: 'ماژول ها' },
+      { path: '/admin/agents', icon: <RiCustomerService2Line size={16} />, label: 'پشتیبان ها' },
     ]
   },
-  { path: '/profile', icon: <RiProfileLine size={20} />, label: '???????' },
-  { path: '/settings', icon: <RiSettingsLine size={20} />, label: '???????' },
+  { path: '/profile', icon: <RiProfileLine size={20} />, label: 'پروفایل' },
+  { path: '/settings', icon: <RiSettingsLine size={20} />, label: 'تنظیمات' },
 ];
 
 export const Sidebar: React.FC<Props> = ({ isOpen, onToggle }) => {
@@ -174,9 +177,9 @@ export const Sidebar: React.FC<Props> = ({ isOpen, onToggle }) => {
           <div className="p-3 rounded-3" style={{ background: 'rgba(255,255,255,0.08)', fontSize: '0.75rem' }}>
             <div className="d-flex align-items-center gap-2 mb-2">
               <div className="rounded-circle bg-success" style={{ width: 8, height: 8 }} />
-              <span>???? ????</span>
+              <span>سرور فعال</span>
             </div>
-            <div className="text-white-50">???? ?.?.?</div>
+            <div className="text-white-50">نسخه ۱.۰.۰</div>
           </div>
         </div>
       </aside>
