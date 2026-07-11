@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { 
   RiDashboardLine, RiFileTextLine, RiUserLine, RiSettingsLine, 
@@ -18,37 +18,37 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  { path: '/dashboard', icon: <RiDashboardLine size={20} />, label: 'داشبورد' },
+  { path: '/dashboard', icon: <RiDashboardLine size={20} />, label: '???????' },
   { 
-    icon: <RiFileTextLine size={20} />, label: 'حسابداری',
+    icon: <RiFileTextLine size={20} />, label: '????????',
     children: [
-      { path: '/accounting', icon: <RiFileTextLine size={16} />, label: 'اسناد حسابداری' },
-      { path: '/accounting/reports', icon: <RiBarChart2Line size={16} />, label: 'گزارشات مالی' },
+      { path: '/accounting', icon: <RiFileTextLine size={16} />, label: '????? ????????' },
+      { path: '/accounting/reports', icon: <RiBarChart2Line size={16} />, label: '??????? ????' },
     ]
   },
   { 
-    icon: <RiBankLine size={20} />, label: 'خزانه داری',
+    icon: <RiBankLine size={20} />, label: '????? ????',
     children: [
-      { path: '/treasury', icon: <RiMoneyDollarCircleLine size={16} />, label: 'دریافت و پرداخت' },
-      { path: '/treasury/cheques', icon: <RiFileTextLine size={16} />, label: 'مدیریت چک' },
+      { path: '/treasury', icon: <RiMoneyDollarCircleLine size={16} />, label: '?????? ? ??????' },
+      { path: '/treasury/cheques', icon: <RiFileTextLine size={16} />, label: '?????? ??' },
     ]
   },
-  { path: '/inventory', icon: <RiArchiveLine size={20} />, label: 'انبارداری' },
-  { path: '/sales', icon: <RiShoppingCartLine size={20} />, label: 'فروش' },
-  { path: '/users', icon: <RiUserLine size={20} />, label: 'کاربران' },
-  { path: '/roles', icon: <RiTeamLine size={20} />, label: 'نقش ها' },
+  { path: '/inventory', icon: <RiArchiveLine size={20} />, label: '?????????' },
+  { path: '/sales', icon: <RiShoppingCartLine size={20} />, label: '????' },
+  { path: '/users', icon: <RiUserLine size={20} />, label: '???????' },
+  { path: '/roles', icon: <RiTeamLine size={20} />, label: '??? ??' },
   { 
     icon: <RiShieldKeyholeLine size={20} />, 
-    label: 'مدیریت سیستم',
+    label: '?????? ?????',
     children: [
-      { path: '/admin/dashboard', icon: <RiDashboardLine size={16} />, label: 'داشبورد مدیریت' },
-      { path: '/admin/companies', icon: <RiBuilding2Line size={16} />, label: 'شرکت ها' },
-      { path: '/admin/modules', icon: <RiAppsLine size={16} />, label: 'ماژول ها' },
-      { path: '/admin/agents', icon: <RiCustomerService2Line size={16} />, label: 'پشتیبان ها' },
+      { path: '/admin/dashboard', icon: <RiDashboardLine size={16} />, label: '??????? ??????' },
+      { path: '/admin/companies', icon: <RiBuilding2Line size={16} />, label: '???? ??' },
+      { path: '/admin/modules', icon: <RiAppsLine size={16} />, label: '????? ??' },
+      { path: '/admin/agents', icon: <RiCustomerService2Line size={16} />, label: '??????? ??' },
     ]
   },
-  { path: '/profile', icon: <RiProfileLine size={20} />, label: 'پروفایل' },
-  { path: '/settings', icon: <RiSettingsLine size={20} />, label: 'تنظیمات' },
+  { path: '/profile', icon: <RiProfileLine size={20} />, label: '???????' },
+  { path: '/settings', icon: <RiSettingsLine size={20} />, label: '???????' },
 ];
 
 export const Sidebar: React.FC<Props> = ({ isOpen, onToggle }) => {
@@ -174,9 +174,9 @@ export const Sidebar: React.FC<Props> = ({ isOpen, onToggle }) => {
           <div className="p-3 rounded-3" style={{ background: 'rgba(255,255,255,0.08)', fontSize: '0.75rem' }}>
             <div className="d-flex align-items-center gap-2 mb-2">
               <div className="rounded-circle bg-success" style={{ width: 8, height: 8 }} />
-              <span>سرور فعال</span>
+              <span>???? ????</span>
             </div>
-            <div className="text-white-50">نسخه ۱.۰.۰</div>
+            <div className="text-white-50">???? ?.?.?</div>
           </div>
         </div>
       </aside>

@@ -13,6 +13,8 @@ import { RolesPage } from './pages/RolesPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { SettingsPage } from './pages/SettingsPage';
 import { AccountingPage } from './pages/AccountingPage';
+import { JournalPage } from './pages/JournalPage';
+import { TrialBalancePage } from './pages/TrialBalancePage';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { CompaniesPage } from './pages/admin/CompaniesPage';
 import { ModulesPage } from './pages/admin/ModulesPage';
@@ -51,9 +53,9 @@ const App: React.FC = () => (
             <Route path="roles" element={<RolesPage/>}/>
             <Route path="settings" element={<SettingsPage/>}/>
             <Route path="accounting" element={<AccountingPage/>}/>
-            <Route path="accounting/reports" element={<Placeholder title="گزارشات مالی"/>}/>
+            <Route path="accounting/journal" element={<JournalPage/>}/>
+            <Route path="accounting/trial-balance" element={<TrialBalancePage/>}/>
             <Route path="treasury" element={<Placeholder title="خزانه داری"/>}/>
-            <Route path="treasury/cheques" element={<Placeholder title="مدیریت چک"/>}/>
             <Route path="inventory" element={<Placeholder title="انبارداری"/>}/>
             <Route path="sales" element={<Placeholder title="فروش"/>}/>
             <Route path="admin/dashboard" element={<AdminDashboard/>}/>
