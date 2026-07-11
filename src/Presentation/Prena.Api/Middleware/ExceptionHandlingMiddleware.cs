@@ -21,42 +21,32 @@ public class ExceptionHandlingMiddleware
         {
             await _next(context);
         }
-        catch (DomainException ex)
-        {
-            _logger.LogWarning(ex, "Domain exception occurred");
-            await HandleDomainExceptionAsync(context, ex);
-        }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An unhandled exception occurred");
+            _logger.LogError(ex, "Unhandled exception: {Message}", ex.Message);
             await HandleExceptionAsync(context, ex);
         }
     }
 
-    private static async Task HandleDomainExceptionAsync(HttpContext context, DomainException exception)
-    {
-        context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-        var result = JsonSerializer.Serialize(new
-        {
-            error = true,
-            message = exception.Message
-        });
-
-        await context.Response.WriteAsync(result);
-    }
-
     private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
+        var (statusCode, message) = exception switch
+        {
+            DomainException => (HttpStatusCode.BadRequest, exception.Message),
+            UnauthorizedAccessException => (HttpStatusCode.Unauthorized, "دسترسی غیرمجاز"),
+            KeyNotFoundException => (HttpStatusCode.NotFound, "مورد یافت نشد"),
+            _ => (HttpStatusCode.InternalServerError, "خطای داخلی سرور. لطفا با پشتیبانی تماس بگیرید.")
+        };
+
         context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        context.Response.StatusCode = (int)statusCode;
 
         var result = JsonSerializer.Serialize(new
         {
             error = true,
-            message = "خطای داخلی سرور. لطفاً با پشتیبانی تماس بگیرید.",
-            traceId = Guid.NewGuid().ToString()
+            message,
+            traceId = Guid.NewGuid().ToString(),
+            timestamp = DateTime.UtcNow
         });
 
         await context.Response.WriteAsync(result);
