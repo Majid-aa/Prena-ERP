@@ -16,6 +16,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<PermissionGroup> PermissionGroups => Set<PermissionGroup>();
     public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
     public DbSet<AgentLevel> AgentLevels => Set<AgentLevel>();
+    public DbSet<Voucher> Vouchers => Set<Voucher>();
+    public DbSet<VoucherLine> VoucherLines => Set<VoucherLine>();
 
     IQueryable<User> IApplicationDbContext.Users => Users.AsQueryable();
     IQueryable<Company> IApplicationDbContext.Companies => Companies.AsQueryable();
@@ -28,10 +30,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     void IApplicationDbContext.Update<TEntity>(TEntity entity) => Update(entity);
     void IApplicationDbContext.Remove<TEntity>(TEntity entity) => Remove(entity);
 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

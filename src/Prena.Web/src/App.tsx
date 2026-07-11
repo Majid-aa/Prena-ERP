@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -27,9 +27,9 @@ const ProtectedRoute: React.FC<{children:React.ReactNode}> = ({children}) => {
 
 const Placeholder: React.FC<{title:string}> = ({title}) => (
   <div className="card p-5 text-center" style={{borderRadius:'12px'}}>
-    <div style={{fontSize:'3rem',marginBottom:'1rem'}}>🚧</div>
+    <div style={{fontSize:'3rem',marginBottom:'1rem'}}>??</div>
     <h4 style={{fontWeight:500}}>{title}</h4>
-    <p className="text-muted">این ماژول به زودی در دسترس خواهد بود.</p>
+    <p className="text-muted">??? ????? ?? ???? ?? ????? ????? ???.</p>
   </div>
 );
 
@@ -49,12 +49,12 @@ const App: React.FC = () => (
             <Route path="users" element={<UsersPage/>}/>
             <Route path="roles" element={<RolesPage/>}/>
             <Route path="settings" element={<SettingsPage/>}/>
-            <Route path="accounting" element={<Placeholder title="حسابداری"/>}/>
-            <Route path="accounting/reports" element={<Placeholder title="گزارشات مالی"/>}/>
-            <Route path="treasury" element={<Placeholder title="خزانه داری"/>}/>
-            <Route path="treasury/cheques" element={<Placeholder title="مدیریت چک"/>}/>
-            <Route path="inventory" element={<Placeholder title="انبارداری"/>}/>
-            <Route path="sales" element={<Placeholder title="فروش"/>}/>
+            <Route path="accounting" element={<Placeholder title="????????"/>}/>
+            <Route path="accounting/reports" element={<Placeholder title="??????? ????"/>}/>
+            <Route path="treasury" element={<Placeholder title="????? ????"/>}/>
+            <Route path="treasury/cheques" element={<Placeholder title="?????? ??"/>}/>
+            <Route path="inventory" element={<Placeholder title="?????????"/>}/>
+            <Route path="sales" element={<Placeholder title="????"/>}/>
             <Route path="admin/dashboard" element={<AdminDashboard/>}/>
             <Route path="admin/companies" element={<CompaniesPage/>}/>
             <Route path="admin/modules" element={<ModulesPage/>}/>
