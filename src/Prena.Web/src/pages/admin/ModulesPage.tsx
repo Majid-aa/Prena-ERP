@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { RiCheckLine, RiCloseLine, RiToggleLine } from 'react-icons/ri';
+import { RiCheckLine, RiCloseLine } from 'react-icons/ri';
 
 const modules = [
   { code: 'CORE', name: 'هسته مرکزی', price: 'رایگان', active: true, required: true },
@@ -20,29 +20,18 @@ const modules = [
 export const ModulesPage: React.FC = () => {
   return (
     <div>
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <h4 style={{ fontWeight: 500 }}>مدیریت ماژول ها</h4>
-          <p className="text-muted" style={{ fontSize: '0.9rem' }}>
-            {modules.length} ماژول - {modules.filter(m => m.active).length} فعال
-          </p>
-        </div>
+      <div className="mb-4">
+        <h4 style={{ fontWeight: 500 }}>📦 مدیریت ماژول ها</h4>
+        <p className="text-muted" style={{ fontSize: '0.9rem' }}>{modules.length} ماژول - {modules.filter(m => m.active).length} فعال</p>
       </div>
 
       <div className="row g-3">
         {modules.map((mod, i) => (
           <div className="col-12 col-md-6 col-lg-4" key={i}>
-            <div className="card p-4 h-100" style={{ borderRadius: '12px', opacity: mod.required ? 1 : 0.9 }}>
+            <div className="card p-4 h-100" style={{ borderRadius: '12px' }}>
               <div className="d-flex justify-content-between align-items-start mb-3">
                 <div className="d-flex align-items-center gap-2">
-                  <div
-                    className="rounded-3 d-flex align-items-center justify-content-center"
-                    style={{
-                      width: 40, height: 40,
-                      backgroundColor: mod.active ? 'rgba(0,200,83,0.1)' : 'rgba(0,0,0,0.05)',
-                      color: mod.active ? '#00C853' : '#999'
-                    }}
-                  >
+                  <div className="rounded-3 d-flex align-items-center justify-content-center" style={{ width: 40, height: 40, backgroundColor: mod.active ? 'rgba(0,200,83,0.1)' : 'rgba(0,0,0,0.05)', color: mod.active ? '#00C853' : '#999' }}>
                     {mod.active ? <RiCheckLine size={20} /> : <RiCloseLine size={20} />}
                   </div>
                   <div>
@@ -50,35 +39,16 @@ export const ModulesPage: React.FC = () => {
                     <small className="text-muted">{mod.code}</small>
                   </div>
                 </div>
-                {mod.required && (
-                  <span className="badge rounded-pill" style={{ backgroundColor: 'rgba(26,35,126,0.1)', color: '#1A237E', fontWeight: 400 }}>
-                    اجباری
-                  </span>
-                )}
+                {mod.required && <span className="badge rounded-pill" style={{ backgroundColor: 'rgba(26,35,126,0.1)', color: '#1A237E' }}>اجباری</span>}
               </div>
-
               <div className="mb-3">
-                <div className="d-flex justify-content-between">
-                  <small className="text-muted">قیمت ماهانه</small>
-                  <small style={{ fontWeight: 500 }}>{mod.price} تومان</small>
-                </div>
+                <div className="d-flex justify-content-between"><small className="text-muted">قیمت ماهانه</small><small style={{ fontWeight: 500 }}>{mod.price} تومان</small></div>
               </div>
-
               <div className="mt-auto">
                 {mod.required ? (
-                  <button className="btn btn-light w-100" disabled style={{ borderRadius: '8px', fontSize: '0.85rem' }}>
-                    ماژول اجباری
-                  </button>
+                  <button className="btn btn-light w-100" disabled style={{ borderRadius: '8px', fontSize: '0.85rem' }}>ماژول اجباری</button>
                 ) : (
-                  <button
-                    className={`btn w-100 ${mod.active ? 'btn-light' : ''}`}
-                    style={{
-                      borderRadius: '8px',
-                      fontSize: '0.85rem',
-                      background: mod.active ? '' : 'linear-gradient(135deg, #1A237E, #283593)',
-                      color: mod.active ? '#333' : 'white',
-                    }}
-                  >
+                  <button className={`btn w-100 ${mod.active ? 'btn-light' : ''}`} style={{ borderRadius: '8px', fontSize: '0.85rem', background: mod.active ? '' : 'linear-gradient(135deg, #1A237E, #283593)', color: mod.active ? '#333' : 'white' }}>
                     {mod.active ? 'غیرفعال سازی' : 'فعال سازی'}
                   </button>
                 )}
