@@ -7,7 +7,7 @@ export const userService = {
     if (Array.isArray(res.data)) return res.data;
     return [];
   },
-  createUser: async (data) => { const res = await api.post('/user', data); return res.data; },
-  updateUser: async (id, data) => { const res = await api.put('/user/' + id, data); return res.data; },
-  deleteUser: async (id) => { const res = await api.delete('/user/' + id); return res.data; },
+  createUser: async (data: any) => { const res = await api.post('/user', data); return res.data; },
+  updateUser: async (id: string, data: any) => { const res = await api.put('/user/' + id, data); return res.data; },
+  deleteUser: async (id: string) => { const res = await api.delete('/user/' + id); return res.data; },
 };
