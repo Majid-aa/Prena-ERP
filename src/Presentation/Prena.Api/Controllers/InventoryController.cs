@@ -1,34 +1,66 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Prena.Infrastructure.Persistence;
+using Prena.Domain.Entities;
 
 namespace Prena.Api.Controllers;
 
 public class InventoryController : ApiControllerBase
 {
-    [HttpGet("transactions")]
-    public IActionResult GetTransactions()
-    {
-        var transactions = new[]
-        {
-            new { Id = "1", Type = "receipt", ProductName = "محصول A", Quantity = 50, Date = "۱۴۰۳/۰۴/۱۵", Description = "رسید از تامین کننده" },
-            new { Id = "2", Type = "issue", ProductName = "محصول B", Quantity = 20, Date = "۱۴۰۳/۰۴/۱۶", Description = "حواله به خط تولید" },
-            new { Id = "3", Type = "receipt", ProductName = "مواد اولیه X", Quantity = 200, Date = "۱۴۰۳/۰۴/۱۰", Description = "خرید عمده" },
-            new { Id = "4", Type = "issue", ProductName = "قطعه یدکی Y", Quantity = 5, Date = "۱۴۰۳/۰۴/۱۸", Description = "تعمیرات" },
-        };
+    private readonly ApplicationDbContext _context;
 
-        return Ok(new { success = true, data = transactions });
+    public InventoryController(ApplicationDbContext context) => _context = context;
+
+    [HttpGet("transactions")]
+    public async Task<IActionResult> GetTransactions()
+    {
+        var list = await _context.InventoryTransactions
+            .Include(t => t.Lines)
+            .OrderByDescending(t => t.CreatedAt)
+            .Take(50)
+            .Select(t => new {
+                t.Id, t.TransactionNumber, t.TransactionType, t.TransactionDate,
+                t.Description, t.Supplier, t.Department,
+                ItemCount = t.Lines.Count, TotalQuantity = t.Lines.Sum(l => l.Quantity)
+            })
+            .ToListAsync();
+        return Ok(new { success = true, data = list });
     }
 
     [HttpPost("receipt")]
-    public IActionResult CreateReceipt([FromBody] InventoryRequest request)
+    public async Task<IActionResult> CreateReceipt([FromBody] CreateInventoryRequest request)
     {
-        return Ok(new { success = true, message = $"رسید انبار برای {request.ProductId} به تعداد {request.Quantity} ثبت شد." });
+        var number = "REC-" + DateTime.Now.ToString("yyyyMMdd") + "-" + new Random().Next(100, 999);
+        var txn = InventoryTransaction.Create(number, "receipt", request.Date, request.Description, request.Supplier ?? "");
+        foreach (var l in request.Lines)
+        {
+            txn.AddLine(l.ProductId, l.Quantity, l.Price);
+            var p = await _context.Products.FindAsync(l.ProductId);
+            if (p != null) p.AddStock(l.Quantity);
+        }
+        _context.InventoryTransactions.Add(txn);
+        await _context.SaveChangesAsync();
+        return Ok(new { success = true, message = "ok", data = new { txn.Id, txn.TransactionNumber } });
     }
 
     [HttpPost("issue")]
-    public IActionResult CreateIssue([FromBody] InventoryRequest request)
+    public async Task<IActionResult> CreateIssue([FromBody] CreateInventoryRequest request)
     {
-        return Ok(new { success = true, message = $"حواله انبار برای {request.ProductId} به تعداد {request.Quantity} ثبت شد." });
+        var number = "ISS-" + DateTime.Now.ToString("yyyyMMdd") + "-" + new Random().Next(100, 999);
+        var txn = InventoryTransaction.Create(number, "issue", request.Date, request.Description, department: request.Department ?? "");
+        foreach (var l in request.Lines)
+        {
+            var p = await _context.Products.FindAsync(l.ProductId);
+            if (p == null || p.Quantity < l.Quantity)
+                return BadRequest(new { success = false, message = "no stock" });
+            txn.AddLine(l.ProductId, l.Quantity, p.Price);
+            p.RemoveStock(l.Quantity);
+        }
+        _context.InventoryTransactions.Add(txn);
+        await _context.SaveChangesAsync();
+        return Ok(new { success = true, message = "ok", data = new { txn.Id, txn.TransactionNumber } });
     }
 }
 
-public record InventoryRequest(string ProductId, decimal Quantity, string Description);
+public record CreateInventoryRequest(DateTime Date, string Description, string? Supplier, string? Department, List<InventoryLineRequest> Lines);
+public record InventoryLineRequest(Guid ProductId, decimal Quantity, decimal Price);
