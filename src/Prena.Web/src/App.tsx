@@ -28,7 +28,8 @@ import { AgentsPage } from './pages/admin/AgentsPage';
 import { ReceiptPage } from './pages/ReceiptPage';
 import { IssuePage } from './pages/IssuePage';
 import { ReceiptListPage } from './pages/ReceiptListPage';
-import { ToastProvider } from './components/common/ToastContainer';
+import { ToastContainer } from './components/common/ToastContainer';
+import { FinancialReportsPage } from './pages/FinancialReportsPage';
 
 import './styles/global.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -74,6 +75,7 @@ const App: React.FC = () => (
             
             {/* فروش */}
             <Route path="sales" element={<SalesPage/>}/>
+            <Route path="reports/financial" element={<FinancialReportsPage/>}/>
             
             {/* مدیریت سیستم */}
             <Route path="admin/dashboard" element={<AdminDashboard/>}/>
