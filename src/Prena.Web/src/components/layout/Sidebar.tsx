@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { RiArrowDownLine, RiArrowUpLine } from 'react-icons/ri';
 import { 
   RiDashboardLine, RiFileTextLine, RiUserLine, RiSettingsLine, 
   RiShoppingCartLine, RiArchiveLine, RiTeamLine, RiProfileLine,
@@ -36,7 +37,13 @@ const menuItems: MenuItem[] = [
       { path: '/treasury/cheques', icon: <RiFileTextLine size={16} />, label: 'مدیریت چک' },
     ]
   },
-  { path: '/inventory', icon: <RiArchiveLine size={20} />, label: 'انبارداری' },
+  { 
+  icon: <RiArchiveLine size={20} />, label: 'انبارداری',
+  children: [
+    { path: '/inventory/receipt', icon: <RiArrowDownLine size={16} />, label: 'رسید انبار' },
+      { path: '/inventory/issue', icon: <RiArrowUpLine size={16} />, label: 'حواله انبار' },
+    ]
+  },
   { path: '/sales', icon: <RiShoppingCartLine size={20} />, label: 'فروش' },
   { path: '/users', icon: <RiUserLine size={20} />, label: 'کاربران' },
   { path: '/roles', icon: <RiTeamLine size={20} />, label: 'نقش ها' },

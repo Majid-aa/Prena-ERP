@@ -25,6 +25,8 @@ import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { CompaniesPage } from './pages/admin/CompaniesPage';
 import { ModulesPage } from './pages/admin/ModulesPage';
 import { AgentsPage } from './pages/admin/AgentsPage';
+import { ReceiptPage } from './pages/ReceiptPage';
+import { IssuePage } from './pages/IssuePage';
 import './styles/global.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -63,7 +65,8 @@ const App: React.FC = () => (
             <Route path="treasury/cheques" element={<ChequesPage/>}/>
             
             {/* انبارداری */}
-            <Route path="inventory" element={<InventoryPage/>}/>
+            <Route path="inventory/receipt" element={<ReceiptPage/>}/>
+            <Route path="inventory/issue" element={<IssuePage/>}/>
             
             {/* فروش */}
             <Route path="sales" element={<SalesPage/>}/>
