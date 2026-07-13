@@ -46,6 +46,7 @@ const menuItems: MenuItem[] = [
   ]
 },
   { path: '/sales', icon: <RiShoppingCartLine size={20} />, label: 'فروش' },
+  { path: '/reports/financial', icon: <RiBarChart2Line size={20} />, label: 'گزارشات مالی' },
   { path: '/users', icon: <RiUserLine size={20} />, label: 'کاربران' },
   { path: '/roles', icon: <RiTeamLine size={20} />, label: 'نقش ها' },
   { 
