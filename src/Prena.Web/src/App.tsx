@@ -27,6 +27,9 @@ import { ModulesPage } from './pages/admin/ModulesPage';
 import { AgentsPage } from './pages/admin/AgentsPage';
 import { ReceiptPage } from './pages/ReceiptPage';
 import { IssuePage } from './pages/IssuePage';
+import { ReceiptListPage } from './pages/ReceiptListPage';
+import { ToastProvider } from './components/common/ToastContainer';
+
 import './styles/global.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -65,6 +68,7 @@ const App: React.FC = () => (
             <Route path="treasury/cheques" element={<ChequesPage/>}/>
             
             {/* انبارداری */}
+            <Route path="inventory/receipts" element={<ReceiptListPage/>}/>
             <Route path="inventory/receipt" element={<ReceiptPage/>}/>
             <Route path="inventory/issue" element={<IssuePage/>}/>
             

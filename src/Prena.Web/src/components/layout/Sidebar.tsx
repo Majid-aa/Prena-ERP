@@ -37,13 +37,14 @@ const menuItems: MenuItem[] = [
       { path: '/treasury/cheques', icon: <RiFileTextLine size={16} />, label: 'مدیریت چک' },
     ]
   },
-  { 
+{ 
   icon: <RiArchiveLine size={20} />, label: 'انبارداری',
   children: [
-    { path: '/inventory/receipt', icon: <RiArrowDownLine size={16} />, label: 'رسید انبار' },
-      { path: '/inventory/issue', icon: <RiArrowUpLine size={16} />, label: 'حواله انبار' },
-    ]
-  },
+    { path: '/inventory/receipts', icon: <RiFileTextLine size={16} />, label: 'لیست رسیدها' },
+    { path: '/inventory/receipt', icon: <RiArrowDownLine size={16} />, label: 'رسید جدید' },
+    { path: '/inventory/issue', icon: <RiArrowUpLine size={16} />, label: 'حواله جدید' },
+  ]
+},
   { path: '/sales', icon: <RiShoppingCartLine size={20} />, label: 'فروش' },
   { path: '/users', icon: <RiUserLine size={20} />, label: 'کاربران' },
   { path: '/roles', icon: <RiTeamLine size={20} />, label: 'نقش ها' },
