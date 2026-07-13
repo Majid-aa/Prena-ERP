@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
+import { DatePicker, getToday } from '../components/common/DatePicker';
 import { RiAddLine, RiDeleteBinLine, RiSaveLine } from 'react-icons/ri';
 import { productService } from '../services/productService';
 import api from '../services/api';
 
 export const IssuePage: React.FC = () => {
   const [products, setProducts] = useState<any[]>([]);
-  const [header, setHeader] = useState({ date: new Date().toISOString().split('T')[0], description: '', department: '' });
+  const [header, setHeader] = useState({ date: getToday(), description: '', department: '' });
   const [lines, setLines] = useState<any[]>([{ productId: '', productName: '', quantity: '', total: 0 }]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -44,7 +45,7 @@ export const IssuePage: React.FC = () => {
       });
       setMessage(`✅ ${res.data.message}`);
       setMessageType('success');
-      setHeader({ date: new Date().toISOString().split('T')[0], description: '', department: '' });
+      setHeader({ date: getToday(), description: '', department: '' });
       setLines([{ productId: '', productName: '', quantity: '', total: 0 }]);
     } catch (e: any) {
       setMessage('❌ خطا در ثبت حواله انبار');
@@ -64,7 +65,7 @@ export const IssuePage: React.FC = () => {
           <div className="row g-3">
             <div className="col-md-3">
               <label className="form-label" style={{ fontSize: '0.85rem' }}>تاریخ</label>
-              <input type="date" className="form-control form-control-sm" value={header.date} onChange={e => setHeader({...header, date: e.target.value})} style={{ borderRadius: '8px' }} />
+              <DatePicker value={header.date} onChange={(v: string) => setHeader({...header, date: v})} className="form-control form-control-sm" />
             </div>
             <div className="col-md-3">
               <label className="form-label" style={{ fontSize: '0.85rem' }}>واحد درخواست کننده</label>

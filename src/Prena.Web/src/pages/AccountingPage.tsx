@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+﻿import { DatePicker, getToday } from '../components/common/DatePicker';
+import React, { useState } from 'react';
 import { RiAddLine, RiDeleteBinLine, RiSaveLine } from 'react-icons/ri';
 import api from '../services/api';
 
@@ -10,9 +11,9 @@ export const AccountingPage: React.FC = () => {
     return jalali.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d).toString());
   };
 
-  const getTodayGregorian = () => new Date().toISOString().split('T')[0];
+  const getTodayGregorian = () => getToday();
 
-  const [date, setDate] = useState(getTodayJalali());
+  const [date, setDate] = useState(getToday());
   const [description, setDescription] = useState('');
   const [lines, setLines] = useState<any[]>([
     { accountId: '', debit: '', credit: '', description: '' },

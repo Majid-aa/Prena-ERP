@@ -1,15 +1,16 @@
+﻿import { DatePicker, getToday } from '../components/common/DatePicker';
 import React, { useState } from 'react';
 import { RiAddLine, RiSendPlaneLine } from 'react-icons/ri';
 
 export const TreasuryPage: React.FC = () => {
   const [tab, setTab] = useState<'receipt' | 'payment'>('receipt');
-  const [form, setForm] = useState({ amount: '', description: '', account: '', date: new Date().toISOString().split('T')[0] });
+  const [form, setForm] = useState({ amount: '', description: '', account: '', date: getToday() });
   const [message, setMessage] = useState('');
 
   const handleSubmit = () => {
     if (!form.amount || !form.description) { setMessage('❌ لطفا همه فیلدها را پر کنید.'); return; }
     setMessage(`✅ ${tab === 'receipt' ? 'دریافت' : 'پرداخت'} با موفقیت ثبت شد.`);
-    setForm({ amount: '', description: '', account: '', date: new Date().toISOString().split('T')[0] });
+    setForm({ amount: '', description: '', account: '', date: getToday() });
     setTimeout(() => setMessage(''), 3000);
   };
 
