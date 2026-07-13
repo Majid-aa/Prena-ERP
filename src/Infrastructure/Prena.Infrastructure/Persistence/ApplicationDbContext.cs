@@ -18,11 +18,11 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<AgentLevel> AgentLevels => Set<AgentLevel>();
     public DbSet<Voucher> Vouchers => Set<Voucher>();
     public DbSet<VoucherLine> VoucherLines => Set<VoucherLine>();
-
-        // اضافه کردن DbSetهای جدید
     public DbSet<Product> Products => Set<Product>();
     public DbSet<InventoryTransaction> InventoryTransactions => Set<InventoryTransaction>();
     public DbSet<InventoryTransactionLine> InventoryTransactionLines => Set<InventoryTransactionLine>();
+    public DbSet<Invoice> Invoices => Set<Invoice>();
+    public DbSet<InvoiceLine> InvoiceLines => Set<InvoiceLine>();
 
     IQueryable<User> IApplicationDbContext.Users => Users.AsQueryable();
     IQueryable<Company> IApplicationDbContext.Companies => Companies.AsQueryable();
