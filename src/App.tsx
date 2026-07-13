@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-//import { ThemeProvider } from './contexts/ThemeContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import { AppLayout } from './components/layout/AppLayout';
 import { LoginPage } from './pages/LoginPage';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
@@ -19,18 +19,18 @@ import { LedgerPage } from './pages/LedgerPage';
 import { ProfitLossPage } from './pages/ProfitLossPage';
 import { TreasuryPage } from './pages/TreasuryPage';
 import { ChequesPage } from './pages/ChequesPage';
-//import { InventoryPage } from './pages/InventoryPage';
+import { InventoryPage } from './pages/InventoryPage';
 import { SalesPage } from './pages/SalesPage';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { CompaniesPage } from './pages/admin/CompaniesPage';
 import { ModulesPage } from './pages/admin/ModulesPage';
 import { AgentsPage } from './pages/admin/AgentsPage';
+import { ProductsPage } from './pages/admin/ProductsPage'; from './pages/admin/AgentsPage';
 import { ReceiptPage } from './pages/ReceiptPage';
 import { IssuePage } from './pages/IssuePage';
 import { ReceiptListPage } from './pages/ReceiptListPage';
 import { ToastProvider } from './components/common/ToastContainer';
 import { FinancialReportsPage } from './pages/FinancialReportsPage';
-import { ProductsPage } from './pages/admin/ProductsPage';
 
 import './styles/global.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -81,9 +81,8 @@ const App: React.FC = () => (
             {/* مدیریت سیستم */}
             <Route path="admin/dashboard" element={<AdminDashboard/>}/>
             <Route path="admin/companies" element={<CompaniesPage/>}/>
-            <Route path="admin/products" element={<ProductsPage/>}/>
             <Route path="admin/modules" element={<ModulesPage/>}/>
-            <Route path="admin/agents" element={<AgentsPage/>}/>
+            <Route path="admin/products" element={<ProductsPage/>}/>`n            <Route path="admin/agents" element={<AgentsPage/>}/>
           </Route>
         </Routes>
       </AuthProvider>

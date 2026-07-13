@@ -55,6 +55,7 @@ const menuItems: MenuItem[] = [
     children: [
       { path: '/admin/dashboard', icon: <RiDashboardLine size={16} />, label: 'داشبورد مدیریت' },
       { path: '/admin/companies', icon: <RiBuilding2Line size={16} />, label: 'شرکت ها' },
+      { path: '/admin/products', icon: <RiArchiveLine size={16} />, label: 'محصولات' },
       { path: '/admin/modules', icon: <RiAppsLine size={16} />, label: 'ماژول ها' },
       { path: '/admin/agents', icon: <RiCustomerService2Line size={16} />, label: 'پشتیبان ها' },
     ]
