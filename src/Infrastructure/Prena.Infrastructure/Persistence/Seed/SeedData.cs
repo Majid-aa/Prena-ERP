@@ -19,14 +19,14 @@ public static class SeedData
     private static async Task SeedPermissionsAsync(ApplicationDbContext context)
     {
         if (await context.Permissions.AnyAsync()) return;
-        var companyMgmt = PermissionGroup.Create(Guid.NewGuid(), "company_management", "Company Management", 1);
-        var userMgmt = PermissionGroup.Create(Guid.NewGuid(), "user_management", "User Management", 2);
-        context.PermissionGroups.AddRange(companyMgmt, userMgmt);
+        var g1 = PermissionGroup.Create(Guid.NewGuid(), "company_mgmt", "مدیریت شرکت", 1);
+        var g2 = PermissionGroup.Create(Guid.NewGuid(), "user_mgmt", "مدیریت کاربران", 2);
+        var g3 = PermissionGroup.Create(Guid.NewGuid(), "accounting", "حسابداری", 3);
+        context.PermissionGroups.AddRange(g1, g2, g3);
         context.Permissions.AddRange(
-            Permission.Create(Guid.NewGuid(), companyMgmt.Id, "company.create", "Create Company", "high"),
-            Permission.Create(Guid.NewGuid(), companyMgmt.Id, "company.view", "View Companies", "low"),
-            Permission.Create(Guid.NewGuid(), userMgmt.Id, "user.create", "Create User", "normal"),
-            Permission.Create(Guid.NewGuid(), userMgmt.Id, "user.view", "View Users", "low")
+            Permission.Create(Guid.NewGuid(), g1.Id, "company.create", "ایجاد شرکت", "high"),
+            Permission.Create(Guid.NewGuid(), g2.Id, "user.create", "ایجاد کاربر", "normal"),
+            Permission.Create(Guid.NewGuid(), g3.Id, "voucher.create", "ایجاد سند", "high")
         );
         await context.SaveChangesAsync();
     }
@@ -34,31 +34,26 @@ public static class SeedData
     private static async Task SeedRolesAsync(ApplicationDbContext context)
     {
         if (await context.Roles.AnyAsync()) return;
-        var allPermissions = await context.Permissions.ToListAsync();
-        var superAdmin = Role.Create(Guid.NewGuid(), "super_admin", "Super Admin", "system", true, "Full access");
-        var companyAdmin = Role.Create(Guid.NewGuid(), "company_admin", "Company Admin", "company", true);
-        context.Roles.AddRange(superAdmin, companyAdmin);
-        await context.SaveChangesAsync();
-        foreach (var perm in allPermissions) context.RolePermissions.Add(RolePermission.Create(superAdmin.Id, perm.Id));
-        foreach (var perm in allPermissions) context.RolePermissions.Add(RolePermission.Create(companyAdmin.Id, perm.Id));
+        var r1 = Role.Create(Guid.NewGuid(), "super_admin", "سوپر ادمین", "system", true, "دسترسی کامل");
+        var r2 = Role.Create(Guid.NewGuid(), "company_admin", "مدیر شرکت", "company", true);
+        context.Roles.AddRange(r1, r2);
         await context.SaveChangesAsync();
     }
 
     private static async Task SeedSuperAdminAsync(ApplicationDbContext context)
     {
         if (await context.Users.AnyAsync(u => u.IsSuperAdmin)) return;
-        var superAdmin = User.Create(MobileNumber.Create("09120000000"), "Admin");
-        typeof(User).GetProperty("IsSuperAdmin")?.SetValue(superAdmin, true);
-        context.Users.Add(superAdmin);
-        await context.SaveChangesAsync();
+        var u = User.Create(MobileNumber.Create("09120000000"), "مدیر سیستم");
+        typeof(User).GetProperty("IsSuperAdmin")?.SetValue(u, true);
+        context.Users.Add(u); await context.SaveChangesAsync();
     }
 
     private static async Task SeedAgentLevelsAsync(ApplicationDbContext context)
     {
         if (await context.AgentLevels.AnyAsync()) return;
         context.AgentLevels.AddRange(
-            AgentLevel.Create(Guid.NewGuid(), "junior", "Junior", 1, 50),
-            AgentLevel.Create(Guid.NewGuid(), "senior", "Senior", 2, 200, true, 50000000)
+            AgentLevel.Create(Guid.NewGuid(), "junior", "پشتیبان عادی", 1, 50),
+            AgentLevel.Create(Guid.NewGuid(), "senior", "پشتیبان ارشد", 2, 200, true, 50000000)
         );
         await context.SaveChangesAsync();
     }
@@ -67,15 +62,19 @@ public static class SeedData
     {
         if (await context.Accounts.AnyAsync()) return;
         context.Accounts.AddRange(
-            Account.Create("1101", "Cash", "asset"),
-            Account.Create("1102", "Bank", "asset"),
-            Account.Create("1201", "Receivables", "asset"),
-            Account.Create("2101", "Payables", "liability"),
-            Account.Create("3101", "Capital", "equity"),
-            Account.Create("4101", "Sales", "income"),
-            Account.Create("5101", "Purchases", "expense"),
-            Account.Create("5102", "Rent", "expense"),
-            Account.Create("5103", "Salary", "expense")
+            Account.Create("1101", "صندوق", "asset"),
+            Account.Create("1102", "بانک تجارت", "asset"),
+            Account.Create("1201", "حساب های دریافتنی", "asset"),
+            Account.Create("1301", "موجودی کالا", "asset"),
+            Account.Create("2101", "حساب های پرداختنی", "liability"),
+            Account.Create("2102", "مالیات پرداختنی", "liability"),
+            Account.Create("3101", "سرمایه", "equity"),
+            Account.Create("3102", "سود انباشته", "equity"),
+            Account.Create("4101", "فروش کالا", "income"),
+            Account.Create("4102", "درآمد خدمات", "income"),
+            Account.Create("5101", "خرید کالا", "expense"),
+            Account.Create("5102", "هزینه اجاره", "expense"),
+            Account.Create("5103", "هزینه حقوق", "expense")
         );
         await context.SaveChangesAsync();
     }

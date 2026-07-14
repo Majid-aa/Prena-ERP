@@ -18,7 +18,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ value, onChange, classNa
 
   return (
     <div className="position-relative" style={style}>
-      <RiCalendarLine className="position-absolute" style={{ left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#1A237E', zIndex: 1 }} size={18} />
+      <RiCalendarLine className="position-absolute" style={{ left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#1A237E', zIndex: 1, pointerEvents: 'none' }} size={18} />
       <input type="text" className={className || 'form-control'} value={value} onChange={(e) => onChange(formatDate(e.target.value))}
         placeholder="1403/01/15" maxLength={10}
         style={{ direction: 'ltr', textAlign: 'left', borderRadius: '8px', paddingLeft: '40px', fontSize: '0.95rem', border: '1px solid #e0e0e0' }} />
@@ -27,12 +27,11 @@ export const DatePicker: React.FC<DatePickerProps> = ({ value, onChange, classNa
 };
 
 export const getToday = (): string => {
-  try { return new Intl.DateTimeFormat('fa-IR-u-ca-persian', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()).replace(/[۰-۹]/g, d => '0123456789'.indexOf(d).toString()); }
-  catch { const n = new Date(); return n.getFullYear() + '/' + String(n.getMonth()+1).padStart(2,'0') + '/' + String(n.getDate()).padStart(2,'0'); }
-};
-
-export const formatDate = (dateStr: string): string => {
-  if (!dateStr) return '---';
-  try { return new Intl.DateTimeFormat('fa-IR-u-ca-persian', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(dateStr)); }
-  catch { return dateStr; }
+  const n = new Date();
+  try {
+    const f = new Intl.DateTimeFormat('fa-IR-u-ca-persian', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    return f.format(n).replace(/[۰-۹]/g, d => '0123456789'.indexOf(d).toString());
+  } catch {
+    return n.getFullYear() + '/' + String(n.getMonth()+1).padStart(2,'0') + '/' + String(n.getDate()).padStart(2,'0');
+  }
 };
