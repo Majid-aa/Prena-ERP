@@ -23,6 +23,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<InventoryTransactionLine> InventoryTransactionLines => Set<InventoryTransactionLine>();
     public DbSet<Invoice> Invoices => Set<Invoice>();
     public DbSet<InvoiceLine> InvoiceLines => Set<InvoiceLine>();
+    public DbSet<Account> Accounts => Set<Account>();
 
     IQueryable<User> IApplicationDbContext.Users => Users.AsQueryable();
     IQueryable<Company> IApplicationDbContext.Companies => Companies.AsQueryable();
