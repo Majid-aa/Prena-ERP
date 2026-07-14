@@ -71,38 +71,20 @@ export const AccountingPage: React.FC = () => {
         <div className="border rounded-3 p-3 mb-4" style={{ backgroundColor: '#f8f9fa' }}>
           <h6 style={{ fontWeight: 600, color: '#1A237E' }}>اطلاعات سند</h6>
           <div className="row g-3">
-            <div className="col-md-2">
-              <label className="form-label" style={{ fontSize: '0.85rem' }}>نوع سند</label>
-              <select className="form-select form-select-sm" value={header.type} onChange={e => setHeader({...header, type: e.target.value})} style={{ borderRadius: '8px' }}>
-                {voucherTypes.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
-              </select>
-            </div>
-            <div className="col-md-3">
-              <label className="form-label" style={{ fontSize: '0.85rem' }}>تاریخ</label>
-              <DatePicker value={header.date} onChange={(v: string) => setHeader({...header, date: v})} className="form-control form-control-sm" />
-            </div>
-            <div className="col-md-7">
-              <label className="form-label" style={{ fontSize: '0.85rem' }}>شرح سند</label>
-              <input type="text" className="form-control form-control-sm" value={header.description} onChange={e => setHeader({...header, description: e.target.value})} placeholder="شرح سند را وارد کنید" style={{ borderRadius: '8px' }} />
-            </div>
+            <div className="col-md-2"><label className="form-label" style={{ fontSize: '0.85rem' }}>نوع سند</label><select className="form-select form-select-sm" value={header.type} onChange={e => setHeader({...header, type: e.target.value})} style={{ borderRadius: '8px' }}>{voucherTypes.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}</select></div>
+            <div className="col-md-3"><label className="form-label" style={{ fontSize: '0.85rem' }}>تاریخ</label><DatePicker value={header.date} onChange={(v: string) => setHeader({...header, date: v})} className="form-control form-control-sm" /></div>
+            <div className="col-md-7"><label className="form-label" style={{ fontSize: '0.85rem' }}>شرح سند</label><input type="text" className="form-control form-control-sm" value={header.description} onChange={e => setHeader({...header, description: e.target.value})} placeholder="شرح سند را وارد کنید" style={{ borderRadius: '8px' }} /></div>
           </div>
         </div>
 
         <h6 style={{ fontWeight: 600, color: '#1A237E' }}>سطرهای سند</h6>
         <div className="table-responsive mb-3">
           <table className="table table-sm">
-            <thead style={{ backgroundColor: '#fafafa' }}>
-              <tr><th>حساب</th><th style={{ width: '130px' }}>بدهکار (ریال)</th><th style={{ width: '130px' }}>بستانکار (ریال)</th><th>شرح</th><th style={{ width: '40px' }}></th></tr>
-            </thead>
+            <thead style={{ backgroundColor: '#fafafa' }}><tr><th>حساب</th><th style={{ width: '130px' }}>بدهکار</th><th style={{ width: '130px' }}>بستانکار</th><th>شرح</th><th style={{ width: '40px' }}></th></tr></thead>
             <tbody>
               {lines.map((line, i) => (
                 <tr key={i}>
-                  <td>
-                    <select className="form-select form-select-sm" value={line.accountId} onChange={e => updateLine(i, 'accountId', e.target.value)} style={{ borderRadius: '6px' }}>
-                      <option value="">انتخاب حساب...</option>
-                      {accounts.map((a: any) => <option key={a.id} value={a.id}>{a.code} - {a.name}</option>)}
-                    </select>
-                  </td>
+                  <td><select className="form-select form-select-sm" value={line.accountId} onChange={e => updateLine(i, 'accountId', e.target.value)} style={{ borderRadius: '6px' }}><option value="">انتخاب حساب...</option>{accounts.map((a: any) => <option key={a.id} value={a.id}>{a.code} - {a.name}</option>)}</select></td>
                   <td><input type="number" className="form-control form-control-sm" value={line.debit} onChange={e => updateLine(i, 'debit', e.target.value)} style={{ borderRadius: '6px' }} /></td>
                   <td><input type="number" className="form-control form-control-sm" value={line.credit} onChange={e => updateLine(i, 'credit', e.target.value)} style={{ borderRadius: '6px' }} /></td>
                   <td><input className="form-control form-control-sm" value={line.description} onChange={e => updateLine(i, 'description', e.target.value)} placeholder="شرح سطر" style={{ borderRadius: '6px' }} /></td>
@@ -110,22 +92,13 @@ export const AccountingPage: React.FC = () => {
                 </tr>
               ))}
             </tbody>
-            <tfoot>
-              <tr style={{ fontWeight: 700, backgroundColor: '#f5f5f5' }}>
-                <td>جمع</td>
-                <td style={{ color: '#1A237E' }}>{totalDebit.toLocaleString()}</td>
-                <td style={{ color: '#00C853' }}>{totalCredit.toLocaleString()}</td>
-                <td colSpan={2}>{isBalanced ? <span style={{ color: '#00C853' }}>✅ متوازن</span> : <span style={{ color: '#FF1744' }}>❌ اختلاف: {Math.abs(totalDebit - totalCredit).toLocaleString()}</span>}</td>
-              </tr>
-            </tfoot>
+            <tfoot><tr style={{ fontWeight: 700, backgroundColor: '#f5f5f5' }}><td>جمع</td><td style={{ color: '#1A237E' }}>{totalDebit.toLocaleString()}</td><td style={{ color: '#00C853' }}>{totalCredit.toLocaleString()}</td><td colSpan={2}>{isBalanced ? <span style={{ color: '#00C853' }}>✅ متوازن</span> : <span style={{ color: '#FF1744' }}>❌ اختلاف: {Math.abs(totalDebit - totalCredit).toLocaleString()}</span>}</td></tr></tfoot>
           </table>
         </div>
 
         <div className="d-flex gap-2 mb-3">
           <button className="btn btn-light btn-sm" onClick={addLine}><RiAddLine /> افزودن سطر</button>
-          <button className="btn btn-sm text-white" onClick={handleSave} disabled={loading || !isBalanced} style={{ background: isBalanced ? 'linear-gradient(135deg, #1A237E, #283593)' : '#ccc', borderRadius: '8px', padding: '8px 20px' }}>
-            <RiSaveLine /> {loading ? 'در حال ثبت...' : 'ثبت سند'}
-          </button>
+          <button className="btn btn-sm text-white" onClick={handleSave} disabled={loading || !isBalanced} style={{ background: isBalanced ? 'linear-gradient(135deg, #1A237E, #283593)' : '#ccc', borderRadius: '8px', padding: '8px 20px' }}><RiSaveLine /> {loading ? 'در حال ثبت...' : 'ثبت سند'}</button>
         </div>
         {message && <div className={`alert alert-${msgType} py-2 px-3`} style={{ borderRadius: '8px', fontSize: '0.9rem' }}>{message}</div>}
       </div>
